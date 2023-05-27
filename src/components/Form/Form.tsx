@@ -11,7 +11,11 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const Form = () => {
+interface Props {
+  handleAddExpenses: (data: FormData) => void;
+}
+
+const Form = ({ handleAddExpenses }: Props) => {
   const categories = ["Food", "Clothing", "Others"];
   const {
     register,
@@ -20,7 +24,7 @@ const Form = () => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+    handleAddExpenses(data);
   };
 
   return (
