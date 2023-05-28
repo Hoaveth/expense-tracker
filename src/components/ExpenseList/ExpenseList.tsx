@@ -8,9 +8,10 @@ interface Expenses {
 
 interface Props {
   expenses: Expenses[];
+  handleDeleteExpense: (index: number) => void;
 }
 
-const ExpenseList = ({ expenses }: Props) => {
+const ExpenseList = ({ expenses, handleDeleteExpense }: Props) => {
   return (
     <table className="table">
       <thead>
@@ -18,6 +19,7 @@ const ExpenseList = ({ expenses }: Props) => {
           <th scope="col">Name</th>
           <th scope="col">Amount</th>
           <th scope="col">Category</th>
+          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -26,6 +28,14 @@ const ExpenseList = ({ expenses }: Props) => {
             <td>{expense.name}</td>
             <td>{expense.amount}</td>
             <td>{expense.category}</td>
+            <td>
+              <button
+                className="btn btn-danger"
+                onClick={() => handleDeleteExpense(index)}
+              >
+                Delete
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>

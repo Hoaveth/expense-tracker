@@ -22,6 +22,12 @@ function App() {
     setActiveCategory(data);
   };
 
+  const handleDeleteExpense = (deleteIndex: number) => {
+    setExpenses((prevState) =>
+      prevState.filter((_, index) => index !== deleteIndex)
+    );
+  };
+
   const filteredCategories = activeCategory
     ? expenses.filter((expense) => expense.category === activeCategory)
     : expenses;
@@ -33,7 +39,10 @@ function App() {
         categories={categories}
         handleSetActiveCategory={handleSetActiveCategory}
       />
-      <ExpenseList expenses={filteredCategories} />
+      <ExpenseList
+        expenses={filteredCategories}
+        handleDeleteExpense={handleDeleteExpense}
+      />
     </div>
   );
 }
