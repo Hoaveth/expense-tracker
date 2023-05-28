@@ -1,11 +1,11 @@
 import React from "react";
+import categories from "../../categories";
 
 interface Props {
-  categories: string[];
   handleSetActiveCategory: (value: string) => void;
 }
 
-const ExpenseFilter = ({ categories, handleSetActiveCategory }: Props) => {
+const ExpenseFilter = ({ handleSetActiveCategory }: Props) => {
   return (
     <select
       className="form-select mb-5 mt-5"
