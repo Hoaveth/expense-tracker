@@ -1,6 +1,7 @@
 import React from "react";
 
 interface Expenses {
+  id: number;
   name: string;
   amount: number;
   category: string;
@@ -8,7 +9,7 @@ interface Expenses {
 
 interface Props {
   expenses: Expenses[];
-  handleDeleteExpense: (index: number) => void;
+  handleDeleteExpense: (id: number) => void;
 }
 
 const ExpenseList = ({ expenses, handleDeleteExpense }: Props) => {
@@ -24,17 +25,17 @@ const ExpenseList = ({ expenses, handleDeleteExpense }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {expenses.map((expense, index) => {
+        {expenses.map((expense) => {
           total += expense.amount;
           return (
-            <tr key={index}>
+            <tr key={expense.id}>
               <td>{expense.name}</td>
               <td>{expense.amount}</td>
               <td>{expense.category}</td>
               <td>
                 <button
-                  className="btn btn-danger"
-                  onClick={() => handleDeleteExpense(index)}
+                  className="btn btn-outline-danger"
+                  onClick={() => handleDeleteExpense(expense.id)}
                 >
                   Delete
                 </button>
