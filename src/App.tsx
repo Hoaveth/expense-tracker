@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Form from "./components/Form";
 import ExpenseList from "./components/ExpenseList";
-import ExpenseFilter from "./components/ExpenseList/ExpenseFilter";
+import ExpenseFilter from "./components/ExpenseFilter/ExpenseFilter";
+import categories from "./categories";
 
 interface Expenses {
   name: string;
@@ -12,7 +13,6 @@ interface Expenses {
 function App() {
   const [expenses, setExpenses] = useState<Expenses[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("");
-  const categories = ["Food", "Clothing", "Others"];
 
   const handleAddExpenses = (data: Expenses) => {
     setExpenses([...expenses, { ...data }]);
@@ -34,11 +34,12 @@ function App() {
 
   return (
     <div className="App">
-      <Form handleAddExpenses={handleAddExpenses} categories={categories} />
-      <ExpenseFilter
-        categories={categories}
-        handleSetActiveCategory={handleSetActiveCategory}
-      />
+      <div className="mb-5">
+        <Form handleAddExpenses={handleAddExpenses} />
+      </div>
+      <div className="mb-3">
+        <ExpenseFilter handleSetActiveCategory={handleSetActiveCategory} />
+      </div>
       <ExpenseList
         expenses={filteredCategories}
         handleDeleteExpense={handleDeleteExpense}
