@@ -28,11 +28,13 @@ const Form = ({ handleAddExpenses }: Props) => {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = (data: FormData) => {
     handleAddExpenses(data);
+    reset();
   };
 
   return (
