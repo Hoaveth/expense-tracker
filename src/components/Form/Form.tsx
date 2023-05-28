@@ -1,29 +1,29 @@
 import React, { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
-  name: z.string().min(3),
-  amount: z.number().min(1),
-  category: z.string().min(1),
+  name: z.string().min(3, { message: "Please input atleast 3 characters" }),
+  amount: z.number().min(5),
+  category: z.string(),
 });
 
 type FormData = z.infer<typeof schema>;
 
 interface Props {
   handleAddExpenses: (data: FormData) => void;
+  categories: string[];
 }
 
-const Form = ({ handleAddExpenses }: Props) => {
-  const categories = ["Food", "Clothing", "Others"];
+const Form = ({ handleAddExpenses, categories }: Props) => {
   const {
-    register,
     handleSubmit,
+    register,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit = (data: FormData) => {
     handleAddExpenses(data);
   };
 
@@ -53,9 +53,11 @@ const Form = ({ handleAddExpenses }: Props) => {
         <label htmlFor="" className="form-label">
           Category
         </label>
-        <select {...register("category")} className="form-control">
+        <select {...register("category")} className="form-select">
           {categories.map((category) => (
-            <option value={category}>{category}</option>
+            <option key={category} value={category}>
+              {category}
+            </option>
           ))}
         </select>
         {errors.category && (
